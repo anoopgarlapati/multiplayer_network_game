@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <time.h>
 
 //suites 1-SPADES, 2-CLUBS, 3-HEARTS, 4-DIAMONDS, rank 2345678910JQKA A-14
 struct card_ {
@@ -276,8 +276,21 @@ int isRoyalFlush(card * arr)
 		return 0;
 }
 
+void shuffleDeck(card * deck)
+{
+	int i;
+	for(i=0; i<52; i++)
+	{
+		card temp = deck[i];
+		int j = rand()%52;
+		deck[i] = deck[j];
+		deck[j] = temp;
+	}
+}
+
 int main()
 {
+	/*
 	card a,b,c,d,e,f,g;
 	int i;	
 	a.suite=1,a.rank=6;
@@ -300,6 +313,35 @@ int main()
 	arr[6].suite=4,arr[6].rank=14;
 
 	printf("%d", isRoyalFlush(arr));
+	*/
+
+	//create newDeck
+	srand(time(NULL));
+	card deck[52];
+	int i;
+	for(i=0; i<52; i++)
+	{
+		deck[i].suite = i/13+1;
+		deck[i].rank = i%13+2;
+	}
+
+	//printDeck
+	for(i=0; i<52; i++)
+	{
+		printcard(deck[i]);
+		printf("\n");
+	}
+
+	//shuffleDeck
+	shuffleDeck(deck);
+
+	//printDeck
+	for(i=0; i<52; i++)
+	{
+		printcard(deck[i]);
+		printf("\n");
+	}
+
 
 	return 0;
 }
