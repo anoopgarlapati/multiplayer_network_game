@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 //suites 1-SPADES, 2-CLUBS, 3-HEARTS, 4-DIAMONDS, rank 2345678910JQKA A-14
 struct card_ {
@@ -314,7 +320,8 @@ int main()
 
 	printf("%d", isRoyalFlush(arr));
 	*/
-
+	
+	/*
 	//create newDeck
 	srand(time(NULL));
 	card deck[52];
@@ -341,7 +348,17 @@ int main()
 		printcard(deck[i]);
 		printf("\n");
 	}
-
+	*/
+	
+	struct sockaddr_in sock_var;
+	int serverfd = socket(AF_INET, SOCK_STREAM, 0);
+	int clientfd, cfd;
+	
+	sock_var.sin_addr.s_addr = inet_addr(IP);
+	sock_var.sin_port = 8081;
+	sock_var.sin_family = AF_INET;
+	
+	
 
 	return 0;
 }
